@@ -12,7 +12,7 @@ All traffic between AWS Codeartifact is passed through a small NodeJS server.
 To use the proxy you need to host the NodeJS application and configure the `.env` for the connection to Codeartifact accordingly. In case of a client that wants to use the proxy just set `register` and `authToken`, in case of `npm` these lines should be added to the `.npmrc` file:
 
 ```
-@phx-husky:registry = https://your-host
+registry = https://your-host
 //your-host/:_authToken = here-insert-one-of-the-tokens-put-into-env
 //your-host/:always-auth = true
 ```
