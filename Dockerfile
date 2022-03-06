@@ -3,7 +3,6 @@ FROM fedora:35
 ARG aws_access_key_id
 ARG aws_secret_access_key
 ARG region
-ARG repo
 
 RUN dnf update -y
 RUN dnf install unzip nodejs -y
