@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": "Bartłomiej Kuśmierczuk <hi@qsma.pl> (https://qsma.pl/)",
   "packageManager": "yarn@3.2.0",
   "scripts": {
     "dev": "ts-node src/index.ts",
