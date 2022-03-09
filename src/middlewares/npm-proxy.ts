@@ -6,7 +6,7 @@ import {
 import https from 'https';
 import { config } from '../config';
 import { kv } from '../utils/kv-memory';
-import { tarballUrl, targetUrl } from '../utils/url';
+import { hostUrl, tarballUrl, targetUrl } from '../utils/url';
 
 const options: Options = {
   target: targetUrl(config),
@@ -21,11 +21,8 @@ const options: Options = {
     const response = responseBuffer.toString('utf-8');
 
     return response.replaceAll(
-      `https://${config.host}`,
-      tarballUrl({
-        ...config,
-        authToken: await kv.get('authToken'),
-      })
+      hostUrl(config),
+      tarballUrl(config, await kv.get('authToken'))
     );
   }),
 };

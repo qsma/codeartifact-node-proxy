@@ -1,26 +1,17 @@
-FROM fedora:35
+FROM node:17-alpine
 
-ARG aws_access_key_id
-ARG aws_secret_access_key
-ARG region
+RUN npm install -g pm2
 
-RUN dnf update -y
-RUN dnf install unzip nodejs -y
-RUN npm install -g yarn ts-node
+RUN mkdir -p /app
+WORKDIR /app
 
-WORKDIR /usr/src/app
-COPY package.json yarn.lock .env ./
-RUN yarn install --immutable
+COPY package.json yarn.lock .yarnrc.yml /app/
+COPY .yarn /app/.yarn
+RUN yarn
 
-RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-RUN unzip awscliv2.zip
-RUN ./aws/install
-
-RUN aws configure set aws_access_key_id $aws_access_key_id
-RUN aws configure set aws_secret_access_key $aws_secret_access_key
-RUN aws configure set default.region $region
-
-COPY . .
+COPY . /app
+RUN yarn build
 
 EXPOSE 3000
-CMD ["ts-node", "./src/index.ts"]
+
+CMD ["pm2-runtime", "dist/index.js"]

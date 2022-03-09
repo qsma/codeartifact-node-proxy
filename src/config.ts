@@ -1,20 +1,19 @@
 import 'dotenv/config';
 
 export type Config = {
-  repo: string;
   domain: string;
   ownerId: string;
-  host: string;
-  accessTokens?: string[];
+  region: string;
+  repository: string;
+  accessTokens: string[];
+  port: number;
 };
 
-const { REPO, DOMAIN, OWNER_ID, HOST, ACCESS_TOKENS } = process.env as Record<
-  string,
-  string
->;
+const { DOMAIN, OWNER_ID, REGION, REPOSITORY, ACCESS_TOKENS, PORT } =
+  process.env as Record<string, string>;
 
 if (
-  ![REPO, DOMAIN, OWNER_ID, HOST, ACCESS_TOKENS].every(
+  ![DOMAIN, OWNER_ID, REGION, REPOSITORY, ACCESS_TOKENS, PORT].every(
     (element) => element !== undefined
   )
 ) {
@@ -25,9 +24,10 @@ if (
 }
 
 export const config: Config = {
-  repo: REPO,
   domain: DOMAIN,
   ownerId: OWNER_ID,
-  host: HOST,
+  region: REGION,
+  repository: REPOSITORY,
   accessTokens: ACCESS_TOKENS?.split(',') || [],
+  port: Number(PORT),
 };
