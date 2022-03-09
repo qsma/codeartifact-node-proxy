@@ -30,7 +30,7 @@ npmAlwaysAuth: true
 To run an application using `docker-compose` all you need to do is create a `.env.template` file based on `.env`, ensure that you have an AWS configuration in the `~/.aws` directory, and call the command:
 
 ```
-docker-compose up -d
+docker-compose up
 ```
 
 The application should be available at: `http://localhost:3000`
